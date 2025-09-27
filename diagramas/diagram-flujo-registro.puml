@@ -1,0 +1,73 @@
+@startuml
+start
+
+:Usuario abre la app;
+
+if (¿Está autenticado?) then (Sí)
+  :Accede al mapa interactivo;
+
+  partition "Exploración" {
+    :Navega por el mapa;
+    :Consulta Waypoints existentes;
+    :Ve detalles: título, descripción, fotos, comentarios, puntuación;
+  }
+
+  partition "Waypoint" {
+    :Hace clic en 'Añadir Punto';
+    :Selecciona categoría y subcategoría;
+    :Coloca el punto en el mapa;
+    :Rellena título, descripción, fotos;
+    if (Formulario válido) then (Sí)
+      :Guarda el waypoint;
+    else (No)
+      :Se muestran errores;
+    endif
+  }
+
+  partition "Comentarios" {
+    :Abre detalles de un waypoint;
+    :Escribe un comentario;
+    :Comentario se envía a la API;
+  }
+
+  partition "Verificaciones" {
+    :Envía verificación del waypoint;
+    :Indica estado y comentario;
+    :Verificación registrada;
+  }
+
+  partition "Valoraciones" {
+    :Valora el waypoint (1-5);
+    if (Ya valoró antes) then (Sí)
+      :Actualiza la valoración;
+    else (No)
+      :Se guarda nueva valoración;
+    endif
+  }
+
+  partition "Perfil de usuario" {
+    :Accede a su perfil;
+    :Edita datos personales (nombre, apellidos, edad, foto);
+    :Guarda cambios;
+  }
+
+  partition "Ranking y puntos" {
+    :Visualiza puntos acumulados;
+    :Consulta su rango de explorador (e.g., Beginner, etc.);
+  }
+
+  :Puede cerrar sesión;
+
+else (No)
+  :Se muestra pantalla de login;
+  :Puede registrarse;
+  :Envío de datos;
+  if (Datos válidos) then (Sí)
+    :Se crea cuenta o se accede;
+  else (No)
+    :Se muestran errores;
+  endif
+endif
+
+stop
+@enduml

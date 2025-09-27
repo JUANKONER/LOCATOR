@@ -1,0 +1,37 @@
+@startuml
+start
+
+:Mostrar Modal de Creación de Punto;
+
+partition Usuario {
+    :Selecciona Categoría;
+}
+partition Sistema {
+    :Cargar Subcategorías desde API;
+}
+if (¿Subcategorías disponibles?) then (Sí)
+  partition Usuario {
+    :Selecciona Subcategoría;
+  }
+else (No)
+  :Mostrar mensaje de que no hay subcategorías;
+  stop
+endif
+
+partition Usuario {
+    :Coloca el punto en el mapa;
+    :Introduce Título y Descripción;
+    :Adjunta hasta 5 fotos válidas;
+}
+
+partition Sistema {
+    if (Formulario válido?) then (Sí)
+      :Enviar datos al backend vía API;
+      :Mostrar confirmación;
+    else (No)
+      :Mostrar errores de validación;
+    endif
+}
+
+stop
+@enduml

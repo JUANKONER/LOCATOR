@@ -1,0 +1,24 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "node",
+      "@nuxt/types",
+      "@pinia/nuxt",
+      "@types/leaflet"
+    ],
+    "strict": true,
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "#app": ["./.nuxt/types/app.d.ts"],
+      "#app/*": ["./.nuxt/types/app/*.d.ts"],
+      "#imports": ["./.nuxt/imports.d.ts"],
+      "~/stores/*": ["./stores/*"],
+      "~/types": ["./types/index.d.ts"]
+    }
+  },
+  "exclude": ["node_modules", ".nuxt", "dist"],
+  "include": ["**/*.ts", "**/*.vue", "**/*.js"]
+}

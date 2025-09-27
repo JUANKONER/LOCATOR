@@ -1,0 +1,86 @@
+@startuml datos-principal
+title Modelo de datos principal - Locator
+
+class User {
+  id: String
+  username: String
+  email: String
+  password: String
+  nombre: String
+  apellidos: String
+  edad: Int
+  profileImage: String
+  points: Int
+  explorerRank: String
+}
+
+class Category {
+  id: String
+  name: String
+  slug: String
+}
+
+class Subcategory {
+  id: String
+  name: String
+  slug: String
+}
+
+class Waypoint {
+  id: String
+  title: String
+  latitude: Float
+  longitude: Float
+}
+
+class Comment {
+  id: String
+  commentText: String
+}
+
+class Verification {
+  id: String
+  status: String
+}
+
+class Photo {
+  id: String
+  url: String
+}
+
+class Rating {
+  id: String
+  value: Int
+}
+
+// Relaciones
+User "1" -- "0..*" Waypoint : crea >
+User "1" -- "0..*" Comment : escribe >
+User "1" -- "0..*" Verification : verifica >
+User "1" -- "0..*" Rating : valora >
+User "1" -- "0..*" Photo : sube >
+
+Category "1" -- "0..*" Subcategory
+Subcategory "1" -- "0..*" Waypoint
+
+Waypoint "1" -- "0..*" Photo
+Waypoint "1" -- "0..*" Comment
+Waypoint "1" -- "0..*" Verification
+Waypoint "1" -- "0..*" Rating
+
+Waypoint "1" -- "1" User : pertenece >
+Waypoint "1" -- "0..1" Subcategory
+
+Comment "1" -- "1" User
+Comment "1" -- "1" Waypoint
+
+Verification "1" -- "1" User
+Verification "1" -- "1" Waypoint
+
+Photo "1" -- "1" User
+Photo "1" -- "1" Waypoint
+
+Rating "1" -- "1" User
+Rating "1" -- "1" Waypoint
+
+@enduml

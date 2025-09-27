@@ -1,0 +1,16 @@
+@startuml
+title Secuencia: Añadir un Waypoint
+
+actor Usuario
+participant "Frontend" as FE
+participant "API Waypoints" as API
+database "DB" as DB
+
+Usuario -> FE : Rellena formulario y sube fotos
+FE -> API : POST /api/waypoints/add (datos + fotos)
+API -> DB : Inserta Waypoint y Fotos
+DB --> API : Waypoint y Fotos guardados
+API --> FE : Respuesta con nuevo Waypoint
+FE --> Usuario : Muestra Waypoint en el mapa
+
+@enduml

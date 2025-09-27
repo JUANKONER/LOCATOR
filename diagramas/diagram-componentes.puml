@@ -1,0 +1,24 @@
+@startuml Arquitectura
+title Arquitectura general de Locator
+
+package "Frontend (Nuxt3)" {
+  [Página Map] 
+  [Página Waypoint]
+  [Página Perfil]
+  [Página Login/Register]
+}
+
+package "Backend (API - Node/Prisma)" {
+  [API Auth]
+  [API Waypoints]
+  [API Comments]
+  [API Ratings]
+  [API Photos]
+}
+
+database "PostgreSQL" as DB
+
+[Frontend (Nuxt3)] --> [Backend (API - Node/Prisma)] : HTTP/REST
+[Backend (API - Node/Prisma)] --> DB : Prisma ORM
+
+@enduml
